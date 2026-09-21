@@ -1,0 +1,825 @@
+/* =========================================================
+   VARIABLES Y BASE
+   ========================================================= */
+
+:root {
+    --crema:        #fdf6e3;
+    --crema-clara:  #fffdf4;
+    --marco:        #7b4a2b;
+    --marco-oscuro: #5d3620;
+    --oro:          #d8b877;
+    --tinta:        #6b4326;
+    --petalo:       #ffd23f;
+    --petalo-atras: #f2b32c;
+    --corazon:      #6b4423;
+    --semilla:      #4a2c17;
+    --hoja:         #4f8a3d;
+    --hoja-clara:   #6ba64c;
+    --tallo:        #4a8038;
+
+    --script: "Parisienne", "Segoe Script", "Lucida Handwriting", cursive;
+    --script-2: "Dancing Script", "Segoe Script", cursive;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    color: var(--tinta);
+    background:
+        radial-gradient(circle at 35% 45%, rgba(255, 240, 180, .45), transparent 55%),
+        linear-gradient(135deg, #fffdf6 0%, #fdf4e0 55%, #fffcf3 100%);
+}
+
+/* Hojitas suaves en las esquinas */
+.ambient {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-repeat: no-repeat;
+    background-size: 260px 260px, 300px 300px, 240px 240px;
+    background-position: -40px -40px, right -50px bottom -60px, right -60px top -50px;
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='%237fa85c' opacity='.45'%3E%3Cellipse cx='40' cy='40' rx='26' ry='11' transform='rotate(35 40 40)'/%3E%3Cellipse cx='95' cy='25' rx='22' ry='9' transform='rotate(-15 95 25)'/%3E%3Cellipse cx='25' cy='100' rx='22' ry='9' transform='rotate(70 25 100)'/%3E%3Cellipse cx='80' cy='85' rx='18' ry='8' transform='rotate(20 80 85)'/%3E%3C/g%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='%237fa85c' opacity='.40'%3E%3Cellipse cx='150' cy='150' rx='28' ry='12' transform='rotate(-35 150 150)'/%3E%3Cellipse cx='95' cy='170' rx='22' ry='9' transform='rotate(15 95 170)'/%3E%3Cellipse cx='170' cy='95' rx='22' ry='9' transform='rotate(-70 170 95)'/%3E%3C/g%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='%23f0d98a' opacity='.55'%3E%3Cellipse cx='150' cy='45' rx='14' ry='7' transform='rotate(30 150 45)'/%3E%3Cellipse cx='100' cy='110' rx='11' ry='6' transform='rotate(-20 100 110)'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+
+/* =========================================================
+   ESTRUCTURA
+   ========================================================= */
+
+.spring-page {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.garden-section {
+    flex: 0 0 64%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4vh 2.5vw;
+}
+
+
+/* =========================================================
+   MARCO DE MADERA
+   ========================================================= */
+
+.garden-frame {
+    position: relative;
+    width: 86%;
+    max-width: 780px;
+    max-height: 84%;
+    aspect-ratio: 4 / 3;
+
+    padding: clamp(10px, 1.3vw, 18px);
+
+    background:
+        linear-gradient(145deg, #8a5630 0%, #6f4425 40%, #8f5c34 70%, #61391f 100%);
+    border-radius: 4px;
+
+    box-shadow:
+        0 18px 40px rgba(90, 58, 30, .22),
+        inset 0 0 0 2px rgba(255, 255, 255, .12);
+}
+
+.garden-frame::after {
+    content: "";
+    position: absolute;
+    inset: clamp(6px, .75vw, 10px);
+    border: 2px solid rgba(216, 184, 119, .85);
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 4;
+}
+
+.garden-mat {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 50% 35%, #fffdf3 0%, #fdf5df 60%, #f6ecd2 100%);
+    box-shadow: inset 0 0 40px rgba(180, 145, 90, .18);
+}
+
+
+/* =========================================================
+   NOMBRE DENTRO DEL CUADRO
+   ========================================================= */
+
+.garden-title {
+    position: absolute;
+    top: 5%;
+    left: 0;
+    right: 0;
+    z-index: 15;
+    text-align: center;
+    pointer-events: none;
+}
+
+.garden-title h2 {
+    font-family: var(--script);
+    font-weight: 400;
+    font-size: clamp(2.2rem, 4.6vw, 4rem);
+    line-height: 1.1;
+    color: #6f4124;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, .8);
+    position: relative;
+}
+
+/* Cada letra se anima por separado */
+.garden-title h2 .letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(26px) rotate(-8deg);
+
+    animation:
+        letterIn   .85s cubic-bezier(.2, .8, .2, 1) forwards,
+        letterWave 4.2s ease-in-out infinite;
+
+    animation-delay:
+        calc(var(--i) * .08s + .25s),
+        calc(var(--i) * .08s + 1.2s);
+}
+
+/* Brillo suave que recorre el nombre */
+.garden-title h2::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(105deg,
+        transparent 40%,
+        rgba(255, 246, 200, .75) 50%,
+        transparent 60%);
+    mix-blend-mode: overlay;
+    opacity: 0;
+    animation: nameShine 7s ease-in-out 3s infinite;
+}
+
+/* Botón invisible escondido en el emoji del girasol del nombre.
+   Solo resetea lo que delataría un <button>; el resto de propiedades
+   (animación, tamaño, posición) las sigue heredando de .letter. */
+.garden-title h2 .sunflower-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    line-height: inherit;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    pointer-events: auto;
+}
+
+.garden-title h2 .sunflower-btn:focus-visible {
+    outline: 2px solid #b07a45;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+
+.title-flourish,
+.message-flourish {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: .35em;
+    color: #8a5a34;
+    font-size: clamp(.9rem, 1.4vw, 1.2rem);
+}
+
+.title-flourish {
+    opacity: 0;
+    animation: fadeUp 1.1s ease-out 1.1s forwards;
+}
+
+.title-flourish .flourish,
+.message-flourish .leafy {
+    font-size: clamp(1.3rem, 2.1vw, 1.8rem);
+    opacity: .85;
+}
+
+.title-flourish .left,
+.message-flourish .left  { transform: scaleX(-1); }
+
+.title-flourish .heart,
+.message-flourish .heart {
+    font-size: .85em;
+    animation: heartBeat 2.6s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   SUELO
+   ========================================================= */
+
+.garden-ground {
+    position: absolute;
+    left: -5%;
+    bottom: -6%;
+    width: 110%;
+    height: 26%;
+    z-index: 1;
+    border-radius: 50% 50% 0 0;
+    background:
+        linear-gradient(180deg, rgba(150, 180, 110, .18) 0%, rgba(120, 155, 80, .55) 100%);
+}
+
+.garden-ground::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 62%;
+    border-radius: 50% 50% 0 0;
+    background: linear-gradient(180deg, rgba(110, 150, 70, .35), rgba(95, 135, 60, .65));
+}
+
+
+/* =========================================================
+   GIRASOLES
+   ========================================================= */
+
+#sunflower-garden {
+    position: absolute;
+    inset: 22% 0 0 0;
+    z-index: 2;
+}
+
+.sunflower {
+    position: absolute;
+    width: 30%;
+    aspect-ratio: 2 / 3;
+    transform-origin: bottom center;
+}
+
+.sunflower.main-flower       { z-index: 5; }
+.sunflower.background-flower { z-index: 1; opacity: .55; filter: blur(1.1px); }
+
+.sunflower-sway {
+    width: 100%;
+    height: 100%;
+    transform-origin: bottom center;
+}
+
+.sunflower.finished .sunflower-sway {
+    animation: sway 5.5s ease-in-out infinite;
+    animation-delay: var(--sway-delay, 0s);
+}
+
+.sunflower-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+
+/* ---------- Tallo ---------- */
+
+.stem {
+    fill: none;
+    stroke: var(--tallo);
+    stroke-width: 7;
+    stroke-linecap: round;
+    stroke-dasharray: 240;
+    stroke-dashoffset: 240;
+    animation: growStem 1.7s ease-out forwards;
+    animation-delay: var(--delay);
+}
+
+.background-flower .stem { stroke: #5f9349; stroke-width: 6; }
+
+
+/* ---------- Hojas ---------- */
+
+.leaf {
+    fill: var(--hoja);
+    transform-box: fill-box;
+    transform-origin: 100% 50%;
+    transform: scale(0);
+    opacity: 0;
+    animation: growLeaf .8s cubic-bezier(.2, .8, .2, 1) forwards;
+}
+
+.leaf.leaf-right { fill: var(--hoja-clara); transform-origin: 0% 50%; }
+.background-flower .leaf { fill: #7aad5c; }
+
+
+/* ---------- Pétalos ---------- */
+
+.petal {
+    fill: var(--petalo);
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    transform: scale(.05);
+    opacity: 0;
+    animation: bloomPetal .7s cubic-bezier(.2, .9, .25, 1.1) forwards;
+}
+
+.petal-back { fill: var(--petalo-atras); }
+
+.background-flower .petal      { fill: #f6c94a; }
+.background-flower .petal-back { fill: #e6ad2c; }
+
+
+/* ---------- Centro ---------- */
+
+.center-group {
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(0);
+    opacity: 0;
+    animation: bloomCenter .9s cubic-bezier(.2, .9, .2, 1) forwards;
+}
+
+.flower-center { fill: var(--corazon); }
+.center-ring   { fill: #8a5a2e; }
+.seed          { fill: var(--semilla); opacity: .8; }
+
+
+/* ---------- Flores pequeñas del suelo ---------- */
+
+.tiny-flower {
+    position: absolute;
+    width: 3.2%;
+    aspect-ratio: 1;
+    opacity: 0;
+    transform: scale(0);
+    animation: popTiny .6s ease-out forwards;
+    z-index: 4;
+}
+
+
+/* =========================================================
+   MENSAJE  (más aire alrededor)
+   ========================================================= */
+
+.message-section {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2rem, 4vh, 3.5rem);
+    padding: 5vh clamp(2rem, 3.5vw, 4rem) 5vh clamp(1rem, 2vw, 2.5rem);
+}
+
+.message-container {
+    width: 100%;
+    max-width: 24rem;
+    text-align: center;
+}
+
+#spring-message {
+    font-family: var(--script-2);
+    font-weight: 600;
+    font-size: clamp(1.9rem, 3vw, 3.2rem);
+    line-height: 1.35;
+    color: #6f4527;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, .8);
+    min-height: 2.8em;
+    margin-bottom: .35em;
+    padding: 0 .3em;
+}
+
+.writing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: .95em;
+    margin-left: 4px;
+    vertical-align: -.08em;
+    background: #8c633e;
+    animation: blink .8s steps(1) infinite;
+}
+
+.writing-cursor.hidden { display: none; }
+
+.message-flourish {
+    opacity: 0;
+    margin-top: .8em;
+}
+
+.message-flourish.show { animation: fadeUp 1s ease-out forwards; }
+
+
+/* =========================================================
+   REPRODUCTOR DE MÚSICA
+   ========================================================= */
+
+.music-player {
+    width: 100%;
+    max-width: 24rem;
+    margin-top: clamp(2rem, 4vh, 3.2rem);
+    padding: 1.1rem 1.25rem 1.2rem;
+
+    border: 1px solid rgba(139, 90, 52, .28);
+    border-radius: 18px;
+    background:
+        linear-gradient(160deg, rgba(255, 253, 244, .92), rgba(253, 243, 219, .88));
+    box-shadow:
+        0 10px 26px rgba(120, 85, 45, .12),
+        inset 0 1px 0 rgba(255, 255, 255, .8);
+
+    opacity: 0;
+    transform: translateY(14px);
+    animation: fadeUp .9s ease-out 2.6s forwards;
+}
+
+.player-head {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+}
+
+/* Disco giratorio con un girasol al centro */
+.player-disc {
+    flex: 0 0 auto;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+
+    background:
+        radial-gradient(circle at 50% 50%, #fff6d8 0 22%, #7b4a2b 23% 100%);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .25);
+}
+
+.disc-flower {
+    font-size: 1rem;
+    color: #b8862f;
+}
+
+.music-player.playing .player-disc {
+    animation: spin 6s linear infinite;
+}
+
+.player-meta { min-width: 0; text-align: left; }
+
+.player-track {
+    font-family: var(--script-2);
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #6f4527;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-state {
+    font-family: system-ui, sans-serif;
+    font-size: .74rem;
+    color: #9a7550;
+    letter-spacing: .01em;
+}
+
+
+/* ---------- Barra de avance y volumen ---------- */
+
+.player-progress { margin-top: .9rem; }
+
+.range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    cursor: pointer;
+    background:
+        linear-gradient(to right, #d8a33f var(--fill, 0%), rgba(139, 90, 52, .18) var(--fill, 0%));
+}
+
+.range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #7b4a2b;
+    border: 2px solid #fffaf0;
+    box-shadow: 0 1px 4px rgba(90, 58, 30, .35);
+}
+
+.range::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #fffaf0;
+    border-radius: 50%;
+    background: #7b4a2b;
+}
+
+.range:focus-visible { outline: 2px solid #b07a45; outline-offset: 3px; }
+
+.player-times {
+    display: flex;
+    justify-content: space-between;
+    margin-top: .35rem;
+    font-family: system-ui, sans-serif;
+    font-size: .7rem;
+    color: #9a7550;
+}
+
+
+/* ---------- Controles ---------- */
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-top: .85rem;
+}
+
+.player-btn {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(139, 90, 52, .3);
+    background: rgba(255, 255, 255, .6);
+    color: #6f4527;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease, border-color .2s ease;
+}
+
+.player-btn:hover {
+    background: #fff4d9;
+    border-color: rgba(139, 90, 52, .6);
+    transform: translateY(-1px);
+}
+
+.player-btn:focus-visible { outline: 2px solid #b07a45; outline-offset: 2px; }
+
+.player-btn.play {
+    width: 46px;
+    height: 46px;
+    font-size: 1.05rem;
+    color: #fffaf0;
+    border: none;
+    background: linear-gradient(145deg, #8a5630, #6b4423);
+    box-shadow: 0 4px 12px rgba(107, 68, 35, .3);
+}
+
+.player-btn.play:hover { background: linear-gradient(145deg, #9a6236, #7a4e28); }
+
+.player-btn.small { width: 28px; height: 28px; font-size: .85rem; }
+
+.player-volume {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    margin-left: auto;
+    width: 38%;
+}
+
+.player-volume .range { height: 4px; }
+
+.music-player.muted .player-btn.small { color: #b79a7c; }
+
+
+/* =========================================================
+   MODAL SORPRESA DEL GIRASOL
+   ========================================================= */
+
+.sun-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+
+    background: rgba(58, 38, 20, .45);
+    backdrop-filter: blur(2px);
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+}
+
+.sun-modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sun-modal {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+
+    padding: 1.7rem 1.5rem 1.4rem;
+    border-radius: 20px;
+
+    background: linear-gradient(160deg, #fffdf4 0%, #fdf3dc 100%);
+    box-shadow:
+        0 20px 45px rgba(90, 58, 30, .3),
+        inset 0 1px 0 rgba(255, 255, 255, .8);
+
+    transform: scale(.92) translateY(8px);
+    transition: transform .25s ease;
+}
+
+.sun-modal-overlay.open .sun-modal {
+    transform: scale(1) translateY(0);
+}
+
+.sun-modal-icon {
+    font-size: 2.1rem;
+    line-height: 1;
+    margin-bottom: .5rem;
+}
+
+.sun-modal-text {
+    font-family: var(--script-2);
+    font-weight: 500;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: #6f4527;
+}
+
+.sun-modal-link {
+    color: #a9722f;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.sun-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: .7rem;
+    margin-top: 1.3rem;
+}
+
+.sun-modal-btn {
+    font-family: system-ui, sans-serif;
+    font-size: .85rem;
+    font-weight: 600;
+    padding: .55em 1.3em;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform .2s ease, background .2s ease;
+}
+
+.sun-modal-btn.cancel {
+    background: rgba(255, 255, 255, .6);
+    border: 1px solid rgba(139, 90, 52, .35);
+    color: #6f4527;
+}
+
+.sun-modal-btn.cancel:hover {
+    background: #fff4d9;
+}
+
+.sun-modal-btn.accept {
+    border: none;
+    color: #fffaf0;
+    background: linear-gradient(145deg, #8a5630, #6b4423);
+    box-shadow: 0 4px 12px rgba(107, 68, 35, .3);
+}
+
+.sun-modal-btn.accept:hover {
+    background: linear-gradient(145deg, #9a6236, #7a4e28);
+}
+
+.sun-modal-btn:focus-visible {
+    outline: 2px solid #b07a45;
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   ANIMACIONES
+   ========================================================= */
+
+@keyframes letterIn {
+    0%   { opacity: 0; transform: translateY(26px) rotate(-8deg); }
+    100% { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+@keyframes letterWave {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50%      { transform: translateY(-6px) rotate(-1.5deg); }
+}
+
+@keyframes nameShine {
+    0%, 70%  { opacity: 0; transform: translateX(-60%); }
+    80%      { opacity: 1; }
+    100%     { opacity: 0; transform: translateX(60%); }
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    18%      { transform: scale(1.22); }
+    36%      { transform: scale(1); }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes growStem { to { stroke-dashoffset: 0; } }
+
+@keyframes growLeaf {
+    0%   { opacity: 0; transform: scale(0); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bloomPetal {
+    0%   { opacity: 0; transform: scale(.05); }
+    60%  { opacity: 1; transform: scale(1.12); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bloomCenter {
+    0%   { opacity: 0; transform: scale(0); }
+    65%  { opacity: 1; transform: scale(1.12); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes popTiny {
+    0%   { opacity: 0; transform: scale(0); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes sway {
+    0%, 100% { transform: rotate(-1.1deg); }
+    50%      { transform: rotate(1.1deg); }
+}
+
+@keyframes blink {
+    0%, 49%   { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+    .spring-page      { flex-direction: column; justify-content: center; overflow-y: auto; }
+    .garden-section   { flex: 0 0 auto; width: 100%; height: 62vh; padding: 3vh 4vw 1vh; }
+    .message-section  { flex: 0 0 auto; width: 100%; height: auto; padding: 2rem 1.5rem 3rem; gap: 1.5rem; }
+    .garden-frame     { width: 96%; max-height: 100%; }
+    #spring-message   { font-size: clamp(1.8rem, 5.2vw, 2.6rem); min-height: 0; }
+    .music-player     { margin-top: 1.5rem; }
+}
+
+@media (max-width: 600px) {
+    body { overflow-y: auto; }
+    .garden-section  { height: 54vh; min-height: 320px; }
+    .garden-frame    { padding: 9px; }
+    .garden-frame::after { inset: 5px; }
+    .sunflower       { width: 34%; }
+    .player-volume   { width: 34%; }
+}
+
+
+/* =========================================================
+   ACCESIBILIDAD
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-delay: 0ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+    .stem { stroke-dashoffset: 0; }
+    .garden-title h2 .letter { opacity: 1; transform: none; }
+}

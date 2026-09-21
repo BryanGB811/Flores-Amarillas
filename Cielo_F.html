@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Flores Amarillas</title>
+
+    <!-- Tipografías caligráficas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Dancing+Script:wght@500;600&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="Diseño.css">
+</head>
+
+<body>
+
+    <!-- Hojitas decoradas de fondo (esquinas) -->
+    <div class="ambient" aria-hidden="true"></div>
+
+    <main class="spring-page">
+
+        <!-- =========================================================
+             LADO IZQUIERDO: EL CUADRO
+             ========================================================= -->
+        <section class="garden-section">
+
+            <div class="garden-frame">
+                <div class="garden-mat">
+
+                    <!-- Nombre (el JS lo separa en letras para animarlo) -->
+                    <header class="garden-title">
+                        <h2 id="garden-name">Para Cielito Farfan, prima de la Foquita Farfan</h2>
+                        <div class="title-flourish" aria-hidden="true">
+                        </div>
+                    </header>
+
+                    <!-- Jardín (lo dibuja el JS) -->
+                    <div class="garden-ground" aria-hidden="true"></div>
+                    <div id="sunflower-garden" aria-hidden="true"></div>
+
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             LADO DERECHO: MENSAJE + REPRODUCTOR
+             ========================================================= -->
+        <section class="message-section">
+
+            <div class="message-container">
+
+                <h1 id="spring-message">
+                    <span id="typed-text"></span><span class="writing-cursor" aria-hidden="true"></span>
+                </h1>
+
+
+                <img src="Anima_cat.gif" alt="Gato Bailarin" width="150px" height="150px">
+
+            </div>
+            
+        </section>
+
+    </main>
+
+    <script src="Animacion_CF.js"></script>
+
+</body>
+</html>
