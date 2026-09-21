@@ -2,7 +2,7 @@
    CONFIGURACIÓN
    ========================================================= */
 
-const MESSAGE = "🌻 ¡Feliz día de la primavera! Espero tengas un bonito día lleno de alegría.";
+const MESSAGE = "🌻 ¡Feliz 21 de septiembre! Espero tengas un bonito día lleno de alegría.";
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 

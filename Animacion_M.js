@@ -2,7 +2,7 @@
    CONFIGURACIÓN
    ========================================================= */
 
-const MESSAGE = "🌻 ¡Feliz día de la primavera! Espero que tengas un bonito día y que te guste este detallito digital que hice para mi gran amiga. 🌻";
+const MESSAGE = "🌻 ¡Feliz 21 de septiembre! Espero que tengas un bonito día y que te guste este detallito digital que hice para mi gran amiga. 🌻";
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 
